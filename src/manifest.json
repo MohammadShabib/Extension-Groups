@@ -3,7 +3,15 @@
   "name": "Extension Groups",
   "version": "1.0.0",
   "description": "Group your extensions",
+  "permissions": [
+    "management",
+    "activeTab"
+  ],
   "icons": {
-    "48": "images/icon48.png"
+    "48": "icon48.png"
+  },
+  "action" : {
+    "default_popup": "popup.html",
+    "default_title": "React Boilerplate"
   }
 }

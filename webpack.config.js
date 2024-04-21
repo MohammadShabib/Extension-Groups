@@ -1,6 +1,13 @@
+const path = require('path')
+const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     mode: "development",
-    entry: "./src/test.tsx",
+    devtool: 'cheap-module-source-map',
+    entry: {
+        popup: path.resolve('./src/index.tsx')
+    },
     module: {
         rules: [
             {
@@ -10,10 +17,33 @@ module.exports = {
             },
         ]
     },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                {
+                    from:
+                        path.resolve('src/manifest.json'),
+                    to:
+                        path.resolve('dist')
+                },
+                {
+                    from:
+                        path.resolve('images/'),
+                    to:
+                        path.resolve('dist')
+                },
+            ],
+        }),
+        new HtmlWebpackPlugin({
+            title: "Extension Groups",
+            filename: "popup.html",
+            chunks: ['popup']
+        })
+    ],
     resolve: {
         extensions: ['.tsx', '.js', '.ts']
     },
     output: {
-        filename: "index.js"
+        filename: '[name].js'
     }
 }
